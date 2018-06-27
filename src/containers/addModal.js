@@ -11,7 +11,7 @@ class AddModal extends Component {
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({modalVisible: visible, name: ''});
   }
 
   handleSubmit = () => {
@@ -20,8 +20,7 @@ class AddModal extends Component {
       id: Number(dataProps[dataProps.length-1].id) + 1,
       name: this.state.name
     });
-    this.setState({modalVisible: false});
-
+    this.setState({modalVisible: false, name: ''});
   }
 
   render() {
