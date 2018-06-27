@@ -10,8 +10,9 @@ export default (state = json.users, {type,  data}) => {
         }
         return state;
     case "ADD_DATA":
-    console.log(JSON.stringify({...state, data}));
-        return { ...state , data };
+        return [ ...state , data ];
+    case "DELETE_DATA":
+        return state.filter(function(event) { return event.id !== data; });
     default:
         return state;
   }

@@ -10,9 +10,9 @@ class Button extends React.Component {
     const { buttonStyle } = styles;
     const { style } = this.props;
     return(
-        <TouchableOpacity onPress={this.props.onPress} style={{ ...buttonStyle, ...style }}>
+        <TouchableOpacity onPress={this.props.onPress} style={{ ...buttonStyle, ...style }} >
           <Text> {this.props.children} </Text>
-        </TouchableOpacity >
+        </TouchableOpacity>
     )
   }
 }

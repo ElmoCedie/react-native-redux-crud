@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { postData } from '../actions';
+import { postData, deleteData } from '../actions';
 import { Button } from '../components/commons';
 import AddModal from './addModal';
 
@@ -15,26 +15,14 @@ class TablePage extends Component {
     }
   }
 
-  // componentWillMount(){
-  //   axios.get('https://jsonplaceholder.typicode.com/users')
-  //   .then( res => { this.props.storeData(res.data); })
-  // }
-
-//   componentWillReceiveProps(nextProps){
-//   if(nextProps.tableData){
-//     this.state.table.unshift(nextProps.newTable);
-//   }
-// }
-
   render() {
     const state = this.state;
-    // console.log(this.props.tableData);
     const table = this.props.tableData.map( res => {
         return [
              res.id,
              res.name,
              <Button style={{ width: 60 }}> update </Button>,
-             <Button style={{ width: 60 }}> delete </Button>,
+             <Button style={{ width: 60 }} onPress={()=>this.props.deleteData(res.id)}> delete </Button>,
           ]
       });
 
@@ -62,4 +50,4 @@ const mapStateToProps = state => {
   return { tableData: state.TableReducer }
 }
 
-export default connect(mapStateToProps)(TablePage);
+export default connect(mapStateToProps, { deleteData })(TablePage);

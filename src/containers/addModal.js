@@ -17,9 +17,11 @@ class AddModal extends Component {
   handleSubmit = () => {
     const dataProps = this.props.dataProps;
     this.props.addData({
-      id: dataProps[dataProps.length-1].id,
+      id: Number(dataProps[dataProps.length-1].id) + 1,
       name: this.state.name
     });
+    this.setState({modalVisible: false});
+
   }
 
   render() {
