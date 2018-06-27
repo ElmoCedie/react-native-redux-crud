@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
 import { Modal, Text, TouchableHighlight, View, TextInput } from 'react-native';
 import { Button } from '../components/commons';
+import { addData } from '../actions';
+import { connect } from 'react-redux';
 
 class AddModal extends Component {
   state = {
     modalVisible: false,
+    name: ''
   };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
+  }
+
+  handleSubmit = () => {
+    const dataProps = this.props.dataProps;
+    this.props.addData({
+      id: dataProps[dataProps.length-1].id,
+      name: this.state.name
+    });
   }
 
   render() {
@@ -30,7 +41,7 @@ class AddModal extends Component {
             {/* Modal Body*/}
             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
               <Text style={{ fontSize: 15, marginBottom: 10 }}>Enter Name:</Text>
-              <TextInput style={{height: 40, paddingLeft: 10 }} />
+              <TextInput value={this.state.name} onChangeText={(name) => this.setState({name})} style={{height: 40, paddingLeft: 10 }} />
             </View>
 
             {/* Modal Footer */}
@@ -45,6 +56,7 @@ class AddModal extends Component {
               </Button>
               <Button
                   style={{ height: 40 }}
+                  onPress={this.handleSubmit}
               >
                 Submit
               </Button>
@@ -66,4 +78,4 @@ class AddModal extends Component {
   }
 }
 
-export default AddModal;
+export default connect(null, {addData})(AddModal);

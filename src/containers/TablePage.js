@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { storeData, postData } from '../actions';
+import { postData } from '../actions';
 import { Button } from '../components/commons';
 import AddModal from './addModal';
 
@@ -15,10 +15,10 @@ class TablePage extends Component {
     }
   }
 
-  componentWillMount(){
-    axios.get('https://jsonplaceholder.typicode.com/users')
-    .then( res => { this.props.storeData(res.data); })
-  }
+  // componentWillMount(){
+  //   axios.get('https://jsonplaceholder.typicode.com/users')
+  //   .then( res => { this.props.storeData(res.data); })
+  // }
 
 //   componentWillReceiveProps(nextProps){
 //   if(nextProps.tableData){
@@ -28,6 +28,7 @@ class TablePage extends Component {
 
   render() {
     const state = this.state;
+    // console.log(this.props.tableData);
     const table = this.props.tableData.map( res => {
         return [
              res.id,
@@ -40,7 +41,7 @@ class TablePage extends Component {
     return (
       <ScrollView style={styles.container}>
         <View>
-          <AddModal />
+          <AddModal dataProps={this.props.tableData}/>
         </View>
         <Table borderStyle={{borderWidth: 2, borderColor: '#b3e6ff'}}>
           <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
@@ -61,4 +62,4 @@ const mapStateToProps = state => {
   return { tableData: state.TableReducer }
 }
 
-export default connect(mapStateToProps, { storeData })(TablePage);
+export default connect(mapStateToProps)(TablePage);
