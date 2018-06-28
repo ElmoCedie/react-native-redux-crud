@@ -1,33 +1,37 @@
 import React, {Component} from 'react';
 import { Modal, Text, TouchableHighlight, View, TextInput } from 'react-native';
 import { Button } from '../components/commons';
-import { addData } from '../actions';
+import { updateData } from '../actions';
 import { connect } from 'react-redux';
 
-class AddModal extends Component {
-  state = {
-    modalVisible: false,
-    name: ''
-  };
+class updateModal extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      modalVisible: false,
+      name: this.props.dataProps.name
+    };
+  }
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible, name: ''});
+    this.setState({modalVisible: visible});
   }
 
   handleSubmit = () => {
     const dataProps = this.props.dataProps;
-    this.props.addData({
-      id: Number(dataProps[dataProps.length-1].id) + 1,
+    this.props.updateData({
+      id: dataProps.id,
       name: this.state.name
     });
-    this.setState({modalVisible: false, name: ''});
+    this.setState({modalVisible: false});
   }
 
   render() {
+    console.log(this.props.dataProps);
     return (
       <View>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
@@ -65,13 +69,14 @@ class AddModal extends Component {
           </View>
         </Modal>
 
-        <View style={{ height: 30, width: 100, marginBottom: 10 }}>
+        <View>
           <Button
+          style={{ width: 60 }}
           onPress={() => {
             this.setModalVisible(true);
           }}
           >
-          Add User
+          Update
           </Button>
         </View>
       </View>
@@ -79,4 +84,4 @@ class AddModal extends Component {
   }
 }
 
-export default connect(null, {addData})(AddModal);
+export default connect(null, {updateData})(updateModal);

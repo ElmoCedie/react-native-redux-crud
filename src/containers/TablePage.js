@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { postData, deleteData } from '../actions';
 import { Button } from '../components/commons';
 import AddModal from './addModal';
+import UpdateModal from './updateModal';
+
 
 class TablePage extends Component {
   constructor(props) {
@@ -17,12 +19,13 @@ class TablePage extends Component {
 
   render() {
     const state = this.state;
+    console.log(this.props.tableData);
     const table = this.props.tableData.map( res => {
         return [
              res.id,
              res.name,
-             <Button style={{ width: 60 }}> update </Button>,
-             <Button style={{ width: 60 }} onPress={()=>this.props.deleteData(res.id)}> delete </Button>,
+             <UpdateModal dataProps={ res } />,
+             <Button style={{ width: 60 }} onPress={()=>this.props.deleteData(res.id)}> Delete </Button>,
           ]
       });
 

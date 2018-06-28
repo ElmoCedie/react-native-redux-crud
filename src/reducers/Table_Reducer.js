@@ -8,6 +8,14 @@ export default (state = json.users, {type,  data}) => {
         return [ ...state , data ];
     case "DELETE_DATA":
         return state.filter(function(event) { return event.id !== data; });
+    case "UPDATE_DATA":
+        const objIndex = state.findIndex( obj => obj.id === data.id );
+        const newState = [
+          ...state.slice(0, objIndex),
+          data,
+          ...state.slice(objIndex+1, state.length)
+        ]
+        return newState
     default:
         return state;
   }
