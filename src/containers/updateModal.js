@@ -7,11 +7,13 @@ import { connect } from 'react-redux';
 class updateModal extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      modalVisible: false,
-      name: this.props.dataProps.name
-    };
+
   }
+
+  state = {
+    modalVisible: false,
+    name: this.props.name
+  };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -21,13 +23,12 @@ class updateModal extends Component {
     const dataProps = this.props.dataProps;
     this.props.updateData({
       id: dataProps.id,
-      name: this.state.name
+      name: ''
     });
     this.setState({modalVisible: false});
   }
 
   render() {
-    console.log(this.props.dataProps);
     return (
       <View>
         <Modal
@@ -46,7 +47,7 @@ class updateModal extends Component {
             {/* Modal Body*/}
             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
               <Text style={{ fontSize: 15, marginBottom: 10 }}>Enter Name:</Text>
-              <TextInput value={this.state.name} onChangeText={(name) => this.setState({name})} style={{height: 40, paddingLeft: 10 }} />
+              <TextInput placeholder={this.props.name} onChangeText={(name) => this.setState({name})} style={{height: 40, paddingLeft: 10 }} />
             </View>
 
             {/* Modal Footer */}

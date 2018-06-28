@@ -19,16 +19,14 @@ class TablePage extends Component {
 
   render() {
     const state = this.state;
-    console.log(this.props.tableData);
     const table = this.props.tableData.map( res => {
         return [
              res.id,
              res.name,
-             <UpdateModal dataProps={ res } />,
+             <UpdateModal dataProps={res} name={res.name} />,
              <Button style={{ width: 60 }} onPress={()=>this.props.deleteData(res.id)}> Delete </Button>,
           ]
       });
-
     return (
       <ScrollView style={styles.container}>
         <View>

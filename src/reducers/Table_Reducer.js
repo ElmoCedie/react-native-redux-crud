@@ -7,6 +7,7 @@ export default (state = json.users, {type,  data}) => {
     case "ADD_DATA":
         return [ ...state , data ];
     case "DELETE_DATA":
+        console.log(state.filter(function(event) { return event.id !== data; }));
         return state.filter(function(event) { return event.id !== data; });
     case "UPDATE_DATA":
         const objIndex = state.findIndex( obj => obj.id === data.id );
