@@ -12,18 +12,18 @@ class updateModal extends Component {
 
   state = {
     modalVisible: false,
-    name: this.props.name
+    name: ''
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({modalVisible: visible, name: this.props.dataProps.name});
   }
 
   handleSubmit = () => {
     const dataProps = this.props.dataProps;
     this.props.updateData({
       id: dataProps.id,
-      name: ''
+      name: this.state.name
     });
     this.setState({modalVisible: false});
   }
@@ -47,7 +47,7 @@ class updateModal extends Component {
             {/* Modal Body*/}
             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
               <Text style={{ fontSize: 15, marginBottom: 10 }}>Enter Name:</Text>
-              <TextInput placeholder={this.props.name} onChangeText={(name) => this.setState({name})} style={{height: 40, paddingLeft: 10 }} />
+              <TextInput value={this.state.name} onChangeText={(name) => this.setState({name})} style={{height: 40, paddingLeft: 10 }} />
             </View>
 
             {/* Modal Footer */}
